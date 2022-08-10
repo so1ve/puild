@@ -13,7 +13,7 @@ import { tsconfig } from "./utils/tsconfig";
 import { log } from "./utils/log";
 
 const argv = cli({
-  name: "pkgroll",
+  name: "puild",
 
   version,
 

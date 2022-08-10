@@ -1,4 +1,4 @@
-# 📦 🍣 pkgroll
+# 📦 🍣 puild
 
 Write your code in ESM & TypeScript and bundle it to get ESM, CommonJS, and type declaration outputs with a single command!
 
@@ -12,7 +12,7 @@ Write your code in ESM & TypeScript and bundle it to get ESM, CommonJS, and type
 
 ## Install
 ```sh
-npm install --save-dev pkgroll
+npm install --save-dev puild
 ```
 
 ## Quick setup
@@ -22,7 +22,7 @@ npm install --save-dev pkgroll
 
     [These configurations](https://nodejs.org/api/packages.html#package-entry-points) are for Node.js to determine how to import the package.
 
-    Pkgroll leverages the same configuration to determine how to build the package.
+    Puild leverages the same configuration to determine how to build the package.
 
   ```json5
   {
@@ -46,9 +46,9 @@ npm install --save-dev pkgroll
     // bin files will be compiled to be executable with the Node.js hashbang
     "bin": "./dist/cli.js",
 
-    // (Optional) Add a build script referencing `pkgroll`
+    // (Optional) Add a build script referencing `puild`
     "scripts": {
-      "build": "pkgroll"
+      "build": "puild"
     }
 
     // ...
@@ -59,18 +59,18 @@ npm install --save-dev pkgroll
 
 3. Package roll!
   ```sh
-  npm run build # or npx pkgroll
+  npm run build # or npx puild
   ```
 
 ## Usage
 
 ### Entry-points
-_Pkgroll_ parses package entry-points from `package.json` by reading properties `main`, `module`, `types`, and `exports`.
+_Puild_ parses package entry-points from `package.json` by reading properties `main`, `module`, `types`, and `exports`.
 
 The paths in `./dist` are mapped to paths in `./src` (configurable with `--src` and `--dist` flags) to determine bundle entry-points.
 
 ### Output formats
-_Pkgroll_ detects the format for each entry-point based on the file extension or the `package.json` property it's placed in, using the [same lookup logic as Node.js](https://nodejs.org/api/packages.html#determining-module-system).
+_Puild_ detects the format for each entry-point based on the file extension or the `package.json` property it's placed in, using the [same lookup logic as Node.js](https://nodejs.org/api/packages.html#determining-module-system).
 
 | `package.json` property | Output format |
 | - | - |
@@ -121,9 +121,9 @@ When generating type declarations (`.d.ts` files), this also bundles and tree-sh
 ### Aliases
 Aliases can be configured in the [import map](https://nodejs.org/api/packages.html#imports), defined in `package.json#imports`.
 
-For native Node.js import mapping, all entries must be prefixed with `#` to indicate an internal [subpath import](https://nodejs.org/api/packages.html#subpath-imports). _Pkgroll_ takes advantage of this behavior to define entries that are _not prefixed_ with `#` as an alias.
+For native Node.js import mapping, all entries must be prefixed with `#` to indicate an internal [subpath import](https://nodejs.org/api/packages.html#subpath-imports). _Puild_ takes advantage of this behavior to define entries that are _not prefixed_ with `#` as an alias.
 
-Native Node.js import mapping supports conditional imports (eg. resolving different paths for Node.js and browser), but _Pkgroll_ does not.
+Native Node.js import mapping supports conditional imports (eg. resolving different paths for Node.js and browser), but _Puild_ does not.
 
 > ⚠️ Aliases are not supported in type declaration generation. If you need type support, do not use aliases.
 
@@ -143,7 +143,7 @@ Native Node.js import mapping supports conditional imports (eg. resolving differ
 
 ### Target
 
-_Pkgroll_ uses [esbuild](https://esbuild.github.io/) to handle TypeScript and JavaScript transformation and minification.
+_Puild_ uses [esbuild](https://esbuild.github.io/) to handle TypeScript and JavaScript transformation and minification.
 
 The target specifies the environments the output should support. Depending on how new the target is, it can generate less code using newer syntax. Read more about it in the [esbuild docs](https://esbuild.github.io/api/#target).
 
@@ -151,7 +151,7 @@ The target specifies the environments the output should support. Depending on ho
 By default, the target is set to the version of Node.js used. It can be overwritten with the `--target` flag:
 
 ```sh
-pkgroll --target=es2020 --target=node14.18.0
+puild --target=es2020 --target=node14.18.0
 ```
 
 It will also automatically detect and include the `target` specified in `tsconfig.json#compilerOptions`.
@@ -169,7 +169,7 @@ This is a new feature and may not work in older versions of Node.js. While you c
 Pass in a Node.js target that that doesn't support it to strip the `node:` protocol from imports:
 
 ```sh
-pkgroll --target=node12.19
+puild --target=node12.19
 ```
 
 ### Export condition
@@ -178,7 +178,7 @@ Similarly to the target, the export condition specifies which fields to read fro
 
 For example, to simulate import resolutions in Node.js, pass in `node` as the export condition:
 ```sh
-pkgroll --export-condition=node
+puild --export-condition=node
 ```
 
 
@@ -186,33 +186,33 @@ pkgroll --export-condition=node
 
 Node.js ESM offers [interoperability with CommonJS](https://nodejs.org/api/esm.html#interoperability-with-commonjs) via [static analysis](https://github.com/nodejs/cjs-module-lexer). However, not all bundlers compile ESM to CJS syntax in a way that is statically analyzable.
 
-Because _pkgroll_ uses Rollup, it's able to produce CJS modules that are minimal and interoperable with Node.js ESM.
+Because _puild_ uses Rollup, it's able to produce CJS modules that are minimal and interoperable with Node.js ESM.
 
 This means you can technically output in CommonJS to get ESM and CommonJS support.
 
 #### `require()` in ESM
 Sometimes it's useful to use `require()` or `require.resolve()` in ESM. ESM code that uses `require()` can be seamlessly compiled to CommonJS, but when compiling to ESM, Node.js will error because `require` doesn't exist in the module scope.
 
-When compiling to ESM, _Pkgroll_ detects `require()` usages and shims it with [`createRequire(import.meta.url)`](https://nodejs.org/api/module.html#modulecreaterequirefilename).
+When compiling to ESM, _Puild_ detects `require()` usages and shims it with [`createRequire(import.meta.url)`](https://nodejs.org/api/module.html#modulecreaterequirefilename).
 
 ### Environment variables
 Pass in compile-time environment variables with the `--env` flag.
 
 This will replace all instances of `process.env.NODE_ENV` with `'production'` and remove unused code:
 ```sh
-pkgroll --env.NODE_ENV=production
+puild --env.NODE_ENV=production
 ```
 
 ### Minification
 Pass in the `--minify` flag to minify assets.
 ```sh
-pkgroll --minify
+puild --minify
 ```
 
 ### Watch mode
 Run the bundler in watch mode during development:
 ```sh
-pkgroll --watch
+puild --watch
 ```
 
 ## FAQ

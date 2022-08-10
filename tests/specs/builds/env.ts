@@ -1,6 +1,6 @@
 import { expect, testSuite } from "manten";
 import { createFixture } from "fs-fixture";
-import { pkgroll } from "../../utils";
+import { puild } from "../../utils";
 
 export default testSuite(({ describe }, nodePath: string) => {
   describe("env", ({ test }) => {
@@ -11,10 +11,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/conditional-require.js",
       });
 
-      const pkgrollProcess = await pkgroll(["--env.NODE_ENV=development"], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild(["--env.NODE_ENV=development"], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/conditional-require.js", "utf8");
       expect(content).toMatch("development");

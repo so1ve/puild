@@ -2,7 +2,7 @@ import type { Plugin } from "rollup";
 import replace from "@rollup/plugin-replace";
 import inject from "@rollup/plugin-inject";
 
-const virtualModuleName = "pkgroll:create-require";
+const virtualModuleName = "puild:create-require";
 
 /**
  * Since rollup is bundled by rollup, it needs to add a run-time

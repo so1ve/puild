@@ -2,7 +2,7 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import { expect, testSuite } from "manten";
 import { createFixture } from "fs-fixture";
-import { installTypeScript, pkgroll } from "../../utils";
+import { installTypeScript, puild } from "../../utils";
 
 export default testSuite(({ describe }, nodePath: string) => {
   describe("change src", ({ test }) => {
@@ -28,12 +28,12 @@ export default testSuite(({ describe }, nodePath: string) => {
         newSourceDirectoryPath,
       );
 
-      const pkgrollProcess = await pkgroll(
+      const puildProcess = await puild(
         ["--src", srcPath],
         { cwd: fixture.path, nodePath },
       );
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       expect(await fixture.exists("dist/nested/index.js")).toBe(true);
       expect(await fixture.exists("dist/nested/index.mjs")).toBe(true);
@@ -63,13 +63,13 @@ export default testSuite(({ describe }, nodePath: string) => {
         newSourceDirectoryPath,
       );
 
-      const pkgrollProcess = await pkgroll(
+      const puildProcess = await puild(
         ["--src", newSourceDirectoryPath],
         { cwd: fixture.path, nodePath },
       );
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       expect(await fixture.exists("dist/nested/index.js")).toBe(true);
       expect(await fixture.exists("dist/nested/index.mjs")).toBe(true);
@@ -91,9 +91,9 @@ export default testSuite(({ describe }, nodePath: string) => {
         types: "./nested/index.d.ts",
       });
 
-      const pkgrollProcess = await pkgroll(["--dist", "."], { cwd: fixture.path, nodePath });
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      const puildProcess = await puild(["--dist", "."], { cwd: fixture.path, nodePath });
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       expect(await fixture.exists("nested/index.js")).toBe(true);
       expect(await fixture.exists("nested/index.mjs")).toBe(true);

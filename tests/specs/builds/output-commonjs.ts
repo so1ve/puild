@@ -1,6 +1,6 @@
 import { expect, testSuite } from "manten";
 import { createFixture } from "fs-fixture";
-import { pkgroll } from "../../utils";
+import { puild } from "../../utils";
 
 export default testSuite(({ describe }, nodePath: string) => {
   describe("output: commonjs", ({ test }) => {
@@ -11,10 +11,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/index.js",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/index.js", "utf8");
       expect(content).toMatch("module.exports =");
@@ -30,10 +30,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/index.cjs",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/index.cjs", "utf8");
       expect(content).toMatch("module.exports =");
@@ -48,10 +48,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/mjs.cjs",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/mjs.cjs", "utf8");
       expect(content).toMatch("exports.sayHello =");
@@ -66,10 +66,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/nested/index.js",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/nested/index.js", "utf8");
       expect(content).toMatch("nested entry point");

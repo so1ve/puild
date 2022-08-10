@@ -1,6 +1,6 @@
 import { expect, testSuite } from "manten";
 import { createFixture } from "fs-fixture";
-import { pkgroll } from "../../utils";
+import { puild } from "../../utils";
 
 export default testSuite(({ describe }, nodePath: string) => {
   describe("output: module", ({ test }) => {
@@ -12,10 +12,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/index.js",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/index.js", "utf8");
       expect(content).toMatch("export { index as default }");
@@ -30,10 +30,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/index.mjs",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/index.mjs", "utf8");
       expect(content).toMatch("export { index as default }");
@@ -48,10 +48,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         module: "./dist/index.js",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/index.js", "utf8");
       expect(content).toMatch("export { index as default }");
@@ -66,10 +66,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/cjs.mjs",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/cjs.mjs", "utf8");
       expect(content).toMatch("export { cjs as default }");
@@ -85,10 +85,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         module: "./dist/require.mjs",
       });
 
-      const pkgrollProcess = await pkgroll(["--minify"], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild(["--minify"], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const js = await fixture.readFile("dist/require.js", "utf8");
       expect(js).not.toMatch("createRequire");
@@ -106,10 +106,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/conditional-require.mjs",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/conditional-require.mjs", "utf8");
       expect(content).toMatch("\tconsole.log('side effect');");
@@ -124,10 +124,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/conditional-require.mjs",
       });
 
-      const pkgrollProcess = await pkgroll(["--env.NODE_ENV=development", "--minify"], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild(["--env.NODE_ENV=development", "--minify"], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/conditional-require.mjs", "utf8");
       expect(content).not.toMatch("\tconsole.log('side effect');");

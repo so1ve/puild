@@ -1,6 +1,6 @@
 import { expect, testSuite } from "manten";
 import { createFixture } from "fs-fixture";
-import { pkgroll } from "../../utils";
+import { puild } from "../../utils";
 
 export default testSuite(({ describe }, nodePath: string) => {
   describe("package exports", ({ test }) => {
@@ -11,10 +11,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         exports: "./dist/index.js",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/index.js", "utf8");
       expect(content).toMatch("module.exports =");
@@ -30,10 +30,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         exports: "./dist/index.js",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/index.js", "utf8");
       expect(content).toMatch("export {");
@@ -51,10 +51,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         },
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/index.js", "utf8");
       expect(content).toMatch("export {");
@@ -83,10 +83,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         },
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const indexMjs = await fixture.readFile("dist/index.js", "utf8");
       expect(indexMjs).toMatch("module.exports =");
@@ -112,10 +112,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         },
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const indexMjs = await fixture.readFile("dist/index.js", "utf8");
       expect(indexMjs).toMatch("module.exports =");

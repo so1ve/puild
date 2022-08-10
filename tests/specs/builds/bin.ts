@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import { expect, testSuite } from "manten";
 import { createFixture } from "fs-fixture";
-import { pkgroll } from "../../utils";
+import { puild } from "../../utils";
 
 export default testSuite(({ describe }, nodePath: string) => {
   describe("bin", ({ test }) => {
@@ -13,10 +13,10 @@ export default testSuite(({ describe }, nodePath: string) => {
       });
 
       await test("supports single path", async () => {
-        const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+        const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-        expect(pkgrollProcess.exitCode).toBe(0);
-        expect(pkgrollProcess.stderr).toBe("");
+        expect(puildProcess.exitCode).toBe(0);
+        expect(puildProcess.stderr).toBe("");
       });
 
       if (process.platform !== "win32") {
@@ -44,10 +44,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         },
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       expect(await fixture.exists("dist/index.mjs")).toBe(true);
       expect(await fixture.exists("dist/index.js")).toBe(true);

@@ -1,6 +1,6 @@
 import { expect, testSuite } from "manten";
 import { createFixture } from "fs-fixture";
-import { pkgroll } from "../../utils";
+import { puild } from "../../utils";
 
 export default testSuite(({ describe }, nodePath: string) => {
   describe("package imports", ({ test }) => {
@@ -18,10 +18,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         console.log(sayGoodbye);
       `);
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/entry.js", "utf8");
 

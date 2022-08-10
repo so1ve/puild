@@ -1,12 +1,12 @@
 import { expect, testSuite } from "manten";
 import { createFixture } from "fs-fixture";
-import { pkgroll } from "../utils";
+import { puild } from "../utils";
 
 export default testSuite(({ describe }, nodePath: string) => {
   describe("Error handling", ({ test }) => {
     test("no package.json", async () => {
       const fixture = await createFixture("./tests/fixture-package");
-      const pkgrollProcess = await pkgroll(
+      const puildProcess = await puild(
         [],
         {
           cwd: fixture.path,
@@ -15,8 +15,8 @@ export default testSuite(({ describe }, nodePath: string) => {
         },
       );
 
-      expect(pkgrollProcess.exitCode).toBe(1);
-      expect(pkgrollProcess.stderr).toMatch("package.json not found");
+      expect(puildProcess.exitCode).toBe(1);
+      expect(puildProcess.stderr).toMatch("package.json not found");
 
       await fixture.rm();
     });
@@ -25,7 +25,7 @@ export default testSuite(({ describe }, nodePath: string) => {
       const fixture = await createFixture("./tests/fixture-package");
 
       await fixture.writeFile("package.json", "{ name: pkg }");
-      const pkgrollProcess = await pkgroll(
+      const puildProcess = await puild(
         [],
         {
           cwd: fixture.path,
@@ -34,8 +34,8 @@ export default testSuite(({ describe }, nodePath: string) => {
         },
       );
 
-      expect(pkgrollProcess.exitCode).toBe(1);
-      expect(pkgrollProcess.stderr).toMatch("Cannot parse package.json");
+      expect(puildProcess.exitCode).toBe(1);
+      expect(puildProcess.stderr).toMatch("Cannot parse package.json");
 
       await fixture.rm();
     });
@@ -47,7 +47,7 @@ export default testSuite(({ describe }, nodePath: string) => {
         name: "pkg",
       });
 
-      const pkgrollProcess = await pkgroll(
+      const puildProcess = await puild(
         [],
         {
           cwd: fixture.path,
@@ -56,8 +56,8 @@ export default testSuite(({ describe }, nodePath: string) => {
         },
       );
 
-      expect(pkgrollProcess.exitCode).toBe(1);
-      expect(pkgrollProcess.stderr).toMatch("No export entries found in package.json");
+      expect(puildProcess.exitCode).toBe(1);
+      expect(puildProcess.stderr).toMatch("No export entries found in package.json");
 
       await fixture.rm();
     });
@@ -71,7 +71,7 @@ export default testSuite(({ describe }, nodePath: string) => {
         module: "dist/index.js",
       });
 
-      const pkgrollProcess = await pkgroll(
+      const puildProcess = await puild(
         [],
         {
           cwd: fixture.path,
@@ -80,8 +80,8 @@ export default testSuite(({ describe }, nodePath: string) => {
         },
       );
 
-      expect(pkgrollProcess.exitCode).toBe(1);
-      expect(pkgrollProcess.stderr).toMatch("Error: Conflicting export types \"commonjs\" & \"module\" found for ./dist/index.js");
+      expect(puildProcess.exitCode).toBe(1);
+      expect(puildProcess.stderr).toMatch("Error: Conflicting export types \"commonjs\" & \"module\" found for ./dist/index.js");
 
       await fixture.rm();
     });
@@ -94,7 +94,7 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "/dist/main.js",
       });
 
-      const pkgrollProcess = await pkgroll(
+      const puildProcess = await puild(
         [],
         {
           cwd: fixture.path,
@@ -103,9 +103,9 @@ export default testSuite(({ describe }, nodePath: string) => {
         },
       );
 
-      expect(pkgrollProcess.exitCode).toBe(1);
-      expect(pkgrollProcess.stderr).toMatch("Ignoring entry outside of ./dist/ directory: package.json#main=\"/dist/main.js\"");
-      expect(pkgrollProcess.stderr).toMatch("No export entries found in package.json");
+      expect(puildProcess.exitCode).toBe(1);
+      expect(puildProcess.stderr).toMatch("Ignoring entry outside of ./dist/ directory: package.json#main=\"/dist/main.js\"");
+      expect(puildProcess.stderr).toMatch("No export entries found in package.json");
 
       await fixture.rm();
     });

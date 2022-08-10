@@ -1,6 +1,6 @@
 import { expect, testSuite } from "manten";
 import { createFixture } from "fs-fixture";
-import { pkgroll } from "../../utils";
+import { puild } from "../../utils";
 
 export default testSuite(({ describe }, nodePath: string) => {
   describe("dependencies", ({ test }) => {
@@ -14,10 +14,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         },
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/dependency-external.js", "utf8");
       expect(content).toMatch("require('@org/name/path')");
@@ -32,10 +32,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/dependency-exports-require.js",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/dependency-exports-require.js", "utf8");
       expect(content).toMatch("cjs");
@@ -50,10 +50,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/dependency-exports-import.js",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/dependency-exports-import.js", "utf8");
       expect(content).toMatch("esm");
@@ -68,10 +68,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/dependency-imports-map.js",
       });
 
-      const pkgrollProcess = await pkgroll([], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild([], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/dependency-imports-map.js", "utf8");
       expect(content).toMatch("default");
@@ -86,10 +86,10 @@ export default testSuite(({ describe }, nodePath: string) => {
         main: "./dist/dependency-imports-map.js",
       });
 
-      const pkgrollProcess = await pkgroll(["--export-condition=node"], { cwd: fixture.path, nodePath });
+      const puildProcess = await puild(["--export-condition=node"], { cwd: fixture.path, nodePath });
 
-      expect(pkgrollProcess.exitCode).toBe(0);
-      expect(pkgrollProcess.stderr).toBe("");
+      expect(puildProcess.exitCode).toBe(0);
+      expect(puildProcess.stderr).toBe("");
 
       const content = await fixture.readFile("dist/dependency-imports-map.js", "utf8");
       expect(content).toMatch("node");
