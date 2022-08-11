@@ -1,6 +1,6 @@
 {
   "name": "puild",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": {
     "name": "Hiroki Osame",
     "email": "hiroki.osame@gmail.com"
@@ -29,11 +29,20 @@
   "files": [
     "dist"
   ],
+  "scripts": {
+    "build": "tsx src/cli.ts --minify",
+    "postbuild": "npm test",
+    "test": "tsx tests/index.ts",
+    "lint": "eslint --cache .",
+    "prepublishOnly": "npm run build",
+    "prepack": "clean-pkg-json",
+    "release": "bumpp --commit --push --tag && pnpm publish"
+  },
   "imports": {
     "typescript": "./src/local-typescript-loader.ts"
   },
   "peerDependencies": {
-    "typescript": "^4.1"
+    "typescript": "*"
   },
   "peerDependenciesMeta": {
     "typescript": {
@@ -51,13 +60,13 @@
     "esbuild": "^0.14.53",
     "magic-string": "^0.26.2",
     "picocolors": "^1.0.0",
-    "rollup": "^2.77.2",
-    "rollup-plugin-auto-external": "^2.0.0"
+    "rollup": "^2.77.2"
   },
   "devDependencies": {
     "@so1ve/eslint-config": "^0.28.1",
     "@types/node": "^18.6.3",
     "@types/rimraf": "^3.0.2",
+    "bumpp": "^8.2.1",
     "clean-pkg-json": "^1.0.0",
     "cleye": "^1.2.1",
     "eslint": "^8.21.0",
