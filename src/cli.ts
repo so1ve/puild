@@ -10,7 +10,7 @@ import { normalizePath } from "./utils/normalize-path";
 import { getSourcePath } from "./utils/get-source-path";
 import { getRollupConfigs } from "./utils/get-rollup-configs";
 import { tsconfig } from "./utils/tsconfig";
-import { log } from "./utils/log";
+import { info } from "./utils/log";
 
 const argv = cli({
   name: "puild",
@@ -137,14 +137,14 @@ if (tsconfigTarget) {
   );
 
   if (argv.flags.watch) {
-    log("Watch initialized");
+    info("Watch initialized");
 
     Object.values(rollupConfigs).map(async (rollupConfig) => {
       const watcher = watch(rollupConfig);
 
       watcher.on("event", async (event) => {
         if (event.code === "BUNDLE_START") {
-          log("Building", ...(Array.isArray(event.input) ? event.input : [event.input]));
+          info("Building", ...(Array.isArray(event.input) ? event.input : [event.input]));
         }
 
         if (event.code === "BUNDLE_END") {
@@ -152,11 +152,11 @@ if (tsconfigTarget) {
             outputOption => event.result.write(outputOption),
           ));
 
-          log("Built", ...(Array.isArray(event.input) ? event.input : [event.input]));
+          info("Built", ...(Array.isArray(event.input) ? event.input : [event.input]));
         }
 
         if (event.code === "ERROR") {
-          log("Error:", event.error.message);
+          info("Error:", event.error.message);
         }
       });
     });
