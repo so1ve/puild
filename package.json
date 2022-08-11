@@ -31,7 +31,6 @@
   ],
   "scripts": {
     "build": "tsx src/cli.ts --minify",
-    "postbuild": "npm test",
     "test": "tsx tests/index.ts",
     "lint": "eslint --cache .",
     "prepublishOnly": "npm run build",
