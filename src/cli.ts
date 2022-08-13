@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import { cli } from "cleye";
 import { rollup, watch } from "rollup";
+import { error, info, log, success, warn } from "kons";
+
 import { version } from "../package.json";
 import { readPackageJson } from "./utils/read-package-json";
 import { getExportEntries } from "./utils/parse-package-json/get-export-entries";
@@ -10,7 +12,7 @@ import { normalizePath } from "./utils/normalize-path";
 import { getSourcePath } from "./utils/get-source-path";
 import { getRollupConfigs } from "./utils/get-rollup-configs";
 import { tsconfig } from "./utils/tsconfig";
-import { info } from "./utils/log";
+import { getDistFiles } from "./utils/get-dist-files";
 
 const argv = cli({
   name: "puild",
@@ -98,7 +100,7 @@ if (tsconfigTarget) {
     const validPath = entry.outputPath.startsWith(distPath);
 
     if (!validPath) {
-      console.warn(`Ignoring entry outside of ${distPath} directory: package.json#${entry.from}=${stringify(entry.outputPath)}`);
+      warn(`Ignoring entry outside of ${distPath} directory: package.json#${entry.from}=${stringify(entry.outputPath)}`);
     }
 
     return validPath;
@@ -152,26 +154,31 @@ if (tsconfigTarget) {
             outputOption => event.result.write(outputOption),
           ));
 
-          info("Built", ...(Array.isArray(event.input) ? event.input : [event.input]));
+          info("Built!", ...(Array.isArray(event.input) ? event.input : [event.input]));
         }
 
         if (event.code === "ERROR") {
-          info("Error:", event.error.message);
+          info("Error: ", event.error.message);
         }
       });
     });
   } else {
-    await Promise.all(
+    info("Building");
+    const outputs = await Promise.all(
       Object.values(rollupConfigs).map(async (rollupConfig) => {
         const bundle = await rollup(rollupConfig);
-
         return Promise.all(rollupConfig.output.map(
           outputOption => bundle.write(outputOption),
         ));
       }),
     );
+    const distFiles = getDistFiles(distPath, outputs);
+    for (const distFile of distFiles) {
+      log(`Output: ${distFile}`);
+    }
+    success("Build succeeded");
   }
-})().catch((error) => {
-  console.error(error);
+})().catch((e) => {
+  error(e);
   process.exit(1);
 });

@@ -19,6 +19,7 @@ specifiers:
   fs-fixture: ^1.1.0
   get-node: ^13.1.0
   get-tsconfig: ^4.2.0
+  kons: ^0.1.2
   magic-string: ^0.26.2
   manten: ^0.2.1
   picocolors: ^1.0.0
@@ -38,6 +39,7 @@ dependencies:
   '@rollup/plugin-replace': 4.0.0_rollup@2.77.2
   '@rollup/pluginutils': 4.2.1
   esbuild: 0.14.53
+  kons: 0.1.2
   magic-string: 0.26.2
   picocolors: 1.0.0
   rollup: 2.77.2
@@ -2519,6 +2521,12 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
     dev: true
+
+  /kons/0.1.2:
+    resolution: {integrity: sha512-/hOkxoPWcs5KZtf+xDz6uiesX1V5zTrwGZOS1v9pXREae0lfVRHmlvbrnsND69P7/A9sdoVnDYoILoNT4GTpbg==}
+    dependencies:
+      picocolors: 1.0.0
+    dev: false
 
   /leven/3.1.0:
     resolution: {integrity: sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==}
