@@ -57,7 +57,7 @@ npm install --save-dev puild
 
   Paths that start with `./dist/` are automatically mapped to files in the `./src/` directory.
 
-3. Package roll!
+3. Package build!
   ```sh
   npm run build # or npx puild
   ```
