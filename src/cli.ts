@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import { cli } from "cleye";
 import { rollup, watch } from "rollup";
-import { error, info, log, success, warn } from "kons";
+import { error, info, log, success, warn } from "kons/consola";
 
 import { version } from "../package.json";
 import { readPackageJson } from "./utils/read-package-json";

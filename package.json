@@ -56,7 +56,7 @@
     "@rollup/plugin-replace": "^4.0.0",
     "@rollup/pluginutils": "^4.2.1",
     "esbuild": "^0.15.2",
-    "kons": "^0.2.0",
+    "kons": "^0.2.1",
     "magic-string": "^0.26.2",
     "picocolors": "^1.0.0",
     "rollup": "^2.77.3"
