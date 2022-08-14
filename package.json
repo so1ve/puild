@@ -23,6 +23,7 @@
     "typescript",
     "declaration"
   ],
+  "type": "module",
   "repository": "so1ve/puild",
   "license": "MIT",
   "bin": "./dist/cli.js",
