@@ -163,7 +163,7 @@ if (tsconfigTarget) {
       });
     });
   } else {
-    info("Building");
+    info(`Building ${packageJson.name || "[Package]"}`);
     const outputs = await Promise.all(
       Object.values(rollupConfigs).map(async (rollupConfig) => {
         const bundle = await rollup(rollupConfig);

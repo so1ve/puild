@@ -1,6 +1,6 @@
 {
   "name": "puild",
-  "version": "1.2.2",
+  "version": "1.2.1",
   "author": {
     "name": "Hiroki Osame",
     "email": "hiroki.osame@gmail.com"
@@ -56,15 +56,15 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-replace": "^4.0.0",
     "@rollup/pluginutils": "^4.2.1",
-    "esbuild": "^0.15.2",
-    "kons": "^0.2.1",
+    "esbuild": "^0.15.3",
+    "kons": "^0.2.2",
     "magic-string": "^0.26.2",
     "picocolors": "^1.0.0",
-    "rollup": "^2.77.3"
+    "rollup": "^2.78.0"
   },
   "devDependencies": {
     "@so1ve/eslint-config": "^0.28.1",
-    "@types/node": "^18.7.3",
+    "@types/node": "^18.7.4",
     "@types/rimraf": "^3.0.2",
     "bumpp": "^8.2.1",
     "cleye": "^1.2.1",
