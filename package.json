@@ -32,7 +32,7 @@
   ],
   "scripts": {
     "build": "rimraf dist && tsx src/cli.ts",
-    "test": "vitest --dir tests",
+    "test": "tsx tests/index.ts",
     "lint": "eslint --cache .",
     "prepublishOnly": "npm run build",
     "release": "bumpp --commit --push --tag && pnpm publish"
