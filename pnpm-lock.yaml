@@ -19,7 +19,7 @@ specifiers:
   fs-fixture: ^1.1.0
   get-node: ^13.1.0
   get-tsconfig: ^4.2.0
-  kons: ^0.2.3
+  kons: ^0.4.0
   magic-string: ^0.26.2
   manten: ^0.2.1
   picocolors: ^1.0.0
@@ -39,7 +39,7 @@ dependencies:
   '@rollup/plugin-replace': 4.0.0_rollup@2.78.0
   '@rollup/pluginutils': 4.2.1
   esbuild: 0.15.3
-  kons: 0.2.3
+  kons: 0.4.0
   magic-string: 0.26.2
   picocolors: 1.0.0
   rollup: 2.78.0
@@ -421,6 +421,13 @@ packages:
       - supports-color
       - typescript
     dev: true
+
+  /@so1ve/figures/5.0.0:
+    resolution: {integrity: sha512-VgstBYBNM1SHmhnETfTvhuME1+3xd03eb1SbATwqP0btkAkHOanuE6SKgfg3oagUNzT0gJCn47/hsfVf+j0ztQ==}
+    dependencies:
+      escape-string-regexp: 5.0.0
+      is-unicode-supported: 1.2.0
+    dev: false
 
   /@szmarczak/http-timer/5.0.1:
     resolution: {integrity: sha512-+PmQX0PiAYPMeVYe237LJAYvOMYW1j2rH5YROyS3b4CTVJum34HfRvKvAzozHAQG0TnHNdUfY9nCeUyRAs//cw==}
@@ -1633,6 +1640,7 @@ packages:
   /escape-string-regexp/1.0.5:
     resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
     engines: {node: '>=0.8.0'}
+    dev: true
 
   /escape-string-regexp/2.0.0:
     resolution: {integrity: sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==}
@@ -1647,7 +1655,6 @@ packages:
   /escape-string-regexp/5.0.0:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
-    dev: true
 
   /eslint-config-standard/17.0.0_zbdqnta3mhnrvw4yywdsj5qdqy:
     resolution: {integrity: sha512-/2ks1GKyqSOkH7JFvXJicu0iMpoojkwB+f5Du/1SC0PtBL+s8v30k9njRZ21pm2drKYm2342jFnGWzttxPmZVg==}
@@ -2097,13 +2104,6 @@ packages:
       got: 12.3.1
       jest-validate: 27.5.1
     dev: true
-
-  /figures/3.2.0:
-    resolution: {integrity: sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==}
-    engines: {node: '>=8'}
-    dependencies:
-      escape-string-regexp: 1.0.5
-    dev: false
 
   /figures/4.0.1:
     resolution: {integrity: sha512-rElJwkA/xS04Vfg+CaZodpso7VqBknOYbzi6I76hI4X80RUjkSxO2oAyPmGbuXUppywjqndOrQDl817hDnI++w==}
@@ -2605,7 +2605,6 @@ packages:
   /is-unicode-supported/1.2.0:
     resolution: {integrity: sha512-wH+U77omcRzevfIG8dDhTS0V9zZyweakfD01FULl97+0EHiJTTZtJqxPSkIIo/SDPv/i07k/C9jAPY+jwLLeUQ==}
     engines: {node: '>=12'}
-    dev: true
 
   /is-weakref/1.0.2:
     resolution: {integrity: sha512-qctsuLZmIQ0+vSSMfoVvyFe2+GSEvnmZ2ezTup1SBse9+twCCeial6EEi3Nc2KFcf6+qz2FBPnjXsk8xhKSaPQ==}
@@ -2768,11 +2767,10 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /kons/0.2.3:
-    resolution: {integrity: sha512-d2ELZQzGSkrM0+zBP7jFaBu7GRPUmY3sMIz47Hn7tcMnyvbvm0d/3POrkTMOWde0Mzznlg84ZxJtTMC+2Usfew==}
+  /kons/0.4.0:
+    resolution: {integrity: sha512-/Aqu4300fEj++yWHYZFqPUMw8mXLbZqUxRDiaEPvRzhaFk1rLQ2xjR4FzOxg9ji7o6P+H3lN4/Z88w4H9697vg==}
     dependencies:
-      figures: 3.2.0
-      pathe: 0.3.4
+      '@so1ve/figures': 5.0.0
       picocolors: 1.0.0
     dev: false
 
@@ -3255,10 +3253,6 @@ packages:
     resolution: {integrity: sha512-5HviZNaZcfqP95rwpv+1HDgUamezbqdSYTyzjTvwtJSnIH+3vnbmWsItli8OFEndS984VT55M3jduxZbX351gg==}
     engines: {node: '>=12'}
     dev: true
-
-  /pathe/0.3.4:
-    resolution: {integrity: sha512-YWgqEdxf36R6vcsyj0A+yT/rDRPe0wui4J9gRR7T4whjU5Lx/jZOr75ckEgTNaLVQABAwsrlzHRpIKcCdXAQ5A==}
-    dev: false
 
   /picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
