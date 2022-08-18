@@ -31,6 +31,7 @@ export const externalizeNodeBuiltins = ({ target }: {
 
     // Ignore non Node platforms
     if (!platform.startsWith("node")) {
+      // eslint-disable-next-line array-callback-return
       return;
     }
 

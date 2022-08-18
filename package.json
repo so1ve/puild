@@ -1,6 +1,6 @@
 {
   "name": "puild",
-  "version": "1.3.0",
+  "version": "1.3.0-test.1",
   "author": {
     "name": "Hiroki Osame",
     "email": "hiroki.osame@gmail.com"
@@ -23,6 +23,7 @@
     "typescript",
     "declaration"
   ],
+  "type": "module",
   "repository": "so1ve/puild",
   "license": "MIT",
   "bin": "./dist/cli.js",
@@ -30,8 +31,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsx src/cli.ts --minify",
-    "test": "tsx tests/index.ts",
+    "build": "rimraf dist && tsx src/cli.ts",
+    "test": "vitest --dir tests",
     "lint": "eslint --cache .",
     "prepublishOnly": "npm run build",
     "release": "bumpp --commit --push --tag && pnpm publish"
@@ -56,9 +57,8 @@
     "@rollup/plugin-replace": "^4.0.0",
     "@rollup/pluginutils": "^4.2.1",
     "esbuild": "^0.15.3",
-    "kons": "^0.4.0",
+    "kons": "^0.5.2",
     "magic-string": "^0.26.2",
-    "picocolors": "^1.0.0",
     "rollup": "^2.78.0"
   },
   "devDependencies": {
@@ -77,6 +77,8 @@
     "rollup-plugin-dts": "^4.2.2",
     "tsx": "^3.8.2",
     "type-fest": "^2.18.0",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "vite": "^3.0.8",
+    "vitest": "^0.22.0"
   }
 }

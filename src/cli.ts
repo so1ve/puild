@@ -163,7 +163,8 @@ if (tsconfigTarget) {
       });
     });
   } else {
-    info(`Building ${packageJson.name || "[Package]"}`);
+    const isMinify = argv.flags.minify ? "and Minifying " : "";
+    info(`Building ${isMinify}${packageJson.name || "[Package]"}...`);
     const outputs = await Promise.all(
       Object.values(rollupConfigs).map(async (rollupConfig) => {
         const bundle = await rollup(rollupConfig);
